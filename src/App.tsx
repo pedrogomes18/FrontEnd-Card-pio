@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
 import "./App.css";
 import { Card } from "./components/card/card";
 import { UseFoodData } from "./hooks/UseFoodData";
+import { CreateModal } from "./components/createModal/createModal";
 
 function App() {
   const { data } = UseFoodData();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
   return (
     <div className="container">
       <h1>Cardápio</h1>
@@ -17,6 +23,8 @@ function App() {
           />
         ))}
       </div>
+      {isModalOpen && <CreateModal closeModal={handleOpenModal} />}
+      <button onClick={handleOpenModal}>novo</button>
     </div>
   );
 }
